@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  postgres_utopia:
+    image: postgis/postgis:12-3.2-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5433:5432'
+    volumes: 
+      - postgres_db:/var/lib/postgresql/data
+
+  utopia_crm:
+    build: .
+    restart: always
+    depends_on:
+      - postgres_utopia
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - '8000:8000'
+  
+volumes:
+  postgres_db:
+    driver: local
+
+  
