@@ -28,3 +28,4 @@ requests
 setuptools
 yolk
 zeep
+django-orghierarchy
